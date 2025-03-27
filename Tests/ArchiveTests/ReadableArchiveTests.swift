@@ -11,6 +11,14 @@ final class ReadableArchiveTests: XCTestCase {
     XCTAssertThrowsError(try r.readByte())
   }
 
+  func testReadOrThrow() {
+    enum S: String, RawRepresentable { case a, b }
+    var r = ReadableArchive(BinaryBuffer("01610261")!)
+    var c = () as Any
+    XCTAssertEqual(try r.readOrThrow(rawValueOf: S.self, in: &c), S.a)
+    XCTAssertThrowsError(try r.readOrThrow(rawValueOf: S.self, in: &c))
+  }
+
   func testByte() {
     var r = ReadableArchive(BinaryBuffer("abcd")!)
     XCTAssertEqual(try r.readByte(), 0xab)

@@ -21,6 +21,17 @@ public struct ReadableArchive<Archive: Sequence<UInt8>> {
   }
 
   /// Reads an instance of `T` from the archive, updating `context` with the deserialization state.
+  public mutating func readOrThrow<T: RawRepresentable>(
+    rawValueOf _: T.Type, in context: inout Any
+  ) throws -> T where T.RawValue: Archivable {
+    if let v = try read(rawValueOf: T.self, in: &context) {
+      return v
+    } else {
+      throw ArchiveError.invalidInput
+    }
+  }
+
+  /// Reads an instance of `T` from the archive, updating `context` with the deserialization state.
   public mutating func read<T: RawRepresentable>(
     rawValueOf _: T.Type, in context: inout Any
   ) throws -> T? where T.RawValue: Archivable {
