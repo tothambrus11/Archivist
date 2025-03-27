@@ -40,8 +40,8 @@ let s = r.read(String.self)
 Instances of any type that conforms to `Archivable` can be passed to `WriteableArchive.write` or `ReadableArchive.read`.
 `Archivable` comes with two requirements:
 
-- `init?<T>(from: inout ReadableArchive<T>, in: inout Any)`, which deserializes a value:
-- `write<T>(to: inout WriteableArchive<T>, in: inout Any)`, which serializes a value.
+- `init<T>(from: inout ReadableArchive<T>, in: inout Any) throws`, which deserializes a value:
+- `write<T>(to: inout WriteableArchive<T>, in: inout Any) throws`, which serializes a value.
 
 Both of these methods accept a parameter of type `Any` representing the context in which deserialization (respectively serialization) operates.
 For instance, you may use this context to keep track of data that has already been serialized in the archive.
