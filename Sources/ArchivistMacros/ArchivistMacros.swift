@@ -121,7 +121,7 @@ extension ArchivableMacro: MemberMacro {
           let (p, ns) = pattern(e)
           SwitchCaseSyntax(p) {
             ExprSyntax("archive.write(byte: \(raw: i))")
-            for n in ns { ExprSyntax("try archive.write(\(n))") }
+            for n in ns { ExprSyntax("try archive.write(\(n), in: &context)") }
           }
         }
       }
