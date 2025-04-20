@@ -4,22 +4,15 @@ on: push
 jobs:
   test:
     strategy:
-      # Fail fast can be set to false to allow all jobs in matrix to complete
-      # even if one fails. Default is true.
-      # fail-fast: false
       matrix:
-        # Define variables and their values
-        os: [macos-latest, ubuntu-latest]
-        swift: ['5.10', '6.0']
-        # Can include other variables like configurations
-        config: [debug, release]
+        # Note: all combinations of the following will be run independently
+        os: [ macos-latest, ubuntu-latest ]
+        swift: [ '6.0' ]
+        config: [ debug, release ]
 
-        # Can exclude specific combinations if needed
-        # exclude:
-        #   - os: ubuntu-latest
-        #     swift: '5.9'
-
-    runs-on: ${{ matrix.os }}
+        # Fail fast can be set to false to allow all jobs in matrix to complete
+        # even if one fails. Default is true.
+        # fail-fast: false
 
     steps:
       - uses: actions/checkout@v4
@@ -31,6 +24,8 @@ jobs:
 
       - name: Build for ${{ matrix.swift }} on ${{ matrix.os }} with ${{ matrix.config }} configuration
         run: swift build -c ${{ matrix.config }}
-        
+
       - name: Test for ${{ matrix.swift }} on ${{ matrix.os }} with ${{ matrix.config }} configuration
         run: swift test -c ${{ matrix.config }}
+
+    runs-on: ${{ matrix.os }}
