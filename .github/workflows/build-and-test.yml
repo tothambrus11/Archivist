@@ -7,7 +7,7 @@ jobs:
       matrix:
         # Note: all combinations of the following will be run independently
         os: [ macos-latest, ubuntu-latest ]
-        swift: [ '6.0' ]
+        swift: [ '6.1' ]
         config: [ debug, release ]
 
         # Fail fast can be set to false to allow all jobs in matrix to complete
