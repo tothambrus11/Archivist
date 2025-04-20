@@ -6,7 +6,7 @@ extension PatternBindingSyntax {
   var isComputedProperty: Bool {
     switch accessorBlock?.accessors {
     case .some(.accessors(let a)):
-      for k in a.compactMap(\.accessorSpecifier.tokenKind) {
+      for k in a.compactMap({$0.accessorSpecifier.tokenKind}) {
         if (k == .keyword(.didSet)) || (k == .keyword(.willSet)) { return true }
       }
       return false
@@ -40,11 +40,7 @@ extension VariableDeclSyntax {
 
   /// `true` iff `self` denotes a computed property.
   var isComputedProperty: Bool {
-    if let b = bindings.uniqueElement?.as(PatternBindingSyntax.self) {
-      return b.isComputedProperty
-    } else {
-      return false
-    }
+    bindings.uniqueElement?.isComputedProperty ?? false
   }
 
 }
