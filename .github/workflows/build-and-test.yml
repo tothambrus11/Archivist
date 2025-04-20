@@ -1,0 +1,36 @@
+name: Build and Test
+on: push
+
+jobs:
+  test:
+    strategy:
+      # Fail fast can be set to false to allow all jobs in matrix to complete
+      # even if one fails. Default is true.
+      # fail-fast: false
+      matrix:
+        # Define variables and their values
+        os: [macos-latest, ubuntu-latest]
+        swift: ['5.10', '6.0']
+        # Can include other variables like configurations
+        config: [debug, release]
+
+        # Can exclude specific combinations if needed
+        # exclude:
+        #   - os: ubuntu-latest
+        #     swift: '5.9'
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Swift ${{ matrix.swift }} on ${{ matrix.os }}
+        uses: SwiftyLab/setup-swift@latest
+        with:
+          swift-version: ${{ matrix.swift }}
+
+      - name: Build for ${{ matrix.swift }} on ${{ matrix.os }} with ${{ matrix.config }} configuration
+        run: swift build -c ${{ matrix.config }}
+        
+      - name: Test for ${{ matrix.swift }} on ${{ matrix.os }} with ${{ matrix.config }} configuration
+        run: swift test -c ${{ matrix.config }}

@@ -211,7 +211,7 @@ extension ArchivableMacro: MemberMacro {
 }
 
 @main
-struct AcrhivistMacros: CompilerPlugin {
+struct ArchivistMacros: CompilerPlugin {
 
   var providingMacros: [Macro.Type] = [ArchivableMacro.self]
 
