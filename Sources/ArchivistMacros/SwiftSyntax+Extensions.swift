@@ -6,7 +6,7 @@ extension PatternBindingSyntax {
   var isComputedProperty: Bool {
     switch accessorBlock?.accessors {
     case .some(.accessors(let a)):
-      for k in a.compactMap(\.accessorSpecifier.tokenKind) {
+      for k in a.map(\.accessorSpecifier.tokenKind) {
         if (k == .keyword(.didSet)) || (k == .keyword(.willSet)) { return true }
       }
       return false
