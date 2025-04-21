@@ -4,15 +4,12 @@ on: push
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
         # Note: all combinations of the following will be run independently
         os: [ macos-latest, ubuntu-latest ]
         swift: [ '6.1' ]
         config: [ debug, release ]
-
-        # Fail fast can be set to false to allow all jobs in matrix to complete
-        # even if one fails. Default is true.
-        # fail-fast: false
 
     steps:
       - uses: actions/checkout@v4
