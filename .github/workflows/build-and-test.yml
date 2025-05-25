@@ -8,8 +8,8 @@ jobs:
       matrix:
         # Note: all combinations of the following will be run independently
         os: [macos-latest, ubuntu-latest]
-        swift: ["6.1.1"]
-        config: [release]
+        swift: ["6.1.1", "6.1", "6.0"]
+        config: [release, debug]
 
     steps:
       - uses: actions/checkout@v4
