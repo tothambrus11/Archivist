@@ -7,9 +7,9 @@ jobs:
       fail-fast: false
       matrix:
         # Note: all combinations of the following will be run independently
-        os: [ macos-latest, ubuntu-latest ]
-        swift: ['6.1' ]
-        config: [ debug, release ]
+        os: [macos-latest, ubuntu-latest]
+        swift: ["6.1.1"]
+        config: [debug, release]
 
     steps:
       - uses: actions/checkout@v4
@@ -19,10 +19,13 @@ jobs:
         with:
           swift-version: ${{ matrix.swift }}
 
-      - name: Build for ${{ matrix.swift }} on ${{ matrix.os }} with ${{ matrix.config }} configuration
-        run: swift build -c ${{ matrix.config }}
+      # We disabled the separate build step, as it consumes extra CI time - building for testing apparently doesn't 
+      # reuse the build cache from here, doubling the CI time.
 
-      - name: Test for ${{ matrix.swift }} on ${{ matrix.os }} with ${{ matrix.config }} configuration
+      # - name: Build for ${{ matrix.swift }} on ${{ matrix.os }} with ${{ matrix.config }} configuration
+      #   run: swift build -c ${{ matrix.config }}
+
+      - name: Build & Test for ${{ matrix.swift }} on ${{ matrix.os }} with ${{ matrix.config }} configuration
         run: swift test -c ${{ matrix.config }}
 
     runs-on: ${{ matrix.os }}
