@@ -8,7 +8,7 @@ jobs:
       matrix:
         # Note: all combinations of the following will be run independently
         os: [macos-latest, ubuntu-latest]
-        swift: ["6.1.1", "6.1", "6.0"]
+        swift: ["6.0"] # Update to 6.1 after this is fixed: https://github.com/swiftlang/swift/issues/81768
         config: [release, debug]
 
     steps:
