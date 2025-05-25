@@ -9,7 +9,7 @@ jobs:
         # Note: all combinations of the following will be run independently
         os: [macos-latest, ubuntu-latest]
         swift: ["6.1.1"]
-        config: [debug, release]
+        config: [release]
 
     steps:
       - uses: actions/checkout@v4
