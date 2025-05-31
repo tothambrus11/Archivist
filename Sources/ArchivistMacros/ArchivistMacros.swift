@@ -39,7 +39,6 @@ extension ArchivableMacro: MemberMacro {
     // Ignore the `conformingTo` parameter for now, delegate to the existing implementation.
     try expansion(of: attribute, providingMembersOf: decl, in: context)
   }
-  
 
   public static func expansion<Decl: DeclGroupSyntax, Context: MacroExpansionContext>(
     of attribute: AttributeSyntax,
