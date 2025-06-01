@@ -126,7 +126,7 @@ extension ArchivableMacro: MemberMacro {
     _ es: [EnumCaseElementSyntax], in context: Context
   ) throws -> FunctionDeclSyntax {
     return try FunctionDeclSyntax(serializerHead(in: context)) {
-      try SwitchExprSyntax("switch try self") {
+      try SwitchExprSyntax("switch self") {
         for (i, e) in es.enumerated() {
           let (p, ns) = pattern(e)
           SwitchCaseSyntax(p) {
